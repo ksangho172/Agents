@@ -253,9 +253,100 @@
   .recording-item {
     background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
     border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
-    display: flex; align-items: center; gap: 10px;
+    border-radius: 10px; margin-bottom: 8px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    overflow: hidden;
+  }
+  .recording-header {
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .recording-header:hover {
+    background: rgba(0,0,0,0.02);
+  }
+  .recording-expand-icon {
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    color: #888; transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .recording-item.expanded .recording-expand-icon {
+    transform: rotate(90deg);
+  }
+  .recording-detail {
+    display: none;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background: #fafafa;
+    padding: 14px;
+    text-align: left;
+  }
+  .recording-item.expanded .recording-detail { display: block; }
+  .detail-section { margin-bottom: 14px; }
+  .detail-section:last-child { margin-bottom: 0; }
+  .detail-title {
+    font-size: 0.65rem; color: #555;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    font-weight: 700; margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .detail-copy-btn {
+    background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 100%);
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 12px; padding: 3px 10px;
+    font-size: 0.65rem; font-weight: 600; color: #333;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .detail-copy-btn:hover { background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%); }
+  .detail-copy-btn.copied {
+    background: linear-gradient(180deg, #d4edda 0%, #c3e6cb 100%);
+    border-color: #28a745; color: #155724;
+  }
+  .summary-box {
+    background: linear-gradient(180deg, #fff9e6 0%, #fff5d6 100%);
+    border: 1px solid #f0d878;
+    border-radius: 8px; padding: 12px;
+    font-size: 0.85rem; line-height: 1.6; color: #5a4a1a;
+  }
+  .summary-stat {
+    display: inline-block;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    padding: 2px 8px;
+    margin: 0 4px 4px 0;
+    font-size: 0.75rem;
+    color: #6b5a2a;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .summary-keyword {
+    display: inline-block;
+    background: rgba(74,144,226,0.1);
+    color: #2a70c2;
+    border-radius: 10px;
+    padding: 2px 8px;
+    margin: 0 4px 4px 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(74,144,226,0.2);
+  }
+  .script-box {
+    background: #fffef5; border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px; padding: 10px;
+    max-height: 200px; overflow-y: auto;
+    font-size: 0.8rem; line-height: 1.5;
+    color: #333;
+  }
+  .script-utterance {
+    margin-bottom: 6px;
+    padding: 4px 0;
+  }
+  .script-utterance:last-child { margin-bottom: 0; }
+  .script-speaker {
+    font-weight: 700;
+    color: #4a90e2;
+    margin-right: 6px;
   }
   .recording-info { flex: 1; text-align: left; min-width: 0; }
   .recording-name {
@@ -359,7 +450,7 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
       </button>
       <div class="meeting-display" id="meetingDisplay">
-        <div class="meeting-meta">**회의 정보 없음**</div>
+        <div class="meeting-meta">회의 정보 없음</div>
       </div>
       <div class="timer" id="timer">00:00</div>
       <canvas class="visualizer" id="visualizer"></canvas>
@@ -472,6 +563,7 @@ let meetingInfo = { name: '', date: '', participants: [] };
 let currentSpeaker = null;
 let utterances = [];
 let currentUtteranceBuffer = '';
+let recordingStartUtteranceIdx = 0; // 녹음 시작 시점의 utterances 인덱스
 
 // DOM 참조
 const recordBtn = document.getElementById('recordBtn');
@@ -909,6 +1001,7 @@ async function startRecording() {
     isPaused = false;
     timerInterval = setInterval(updateTimer, 100);
     drawVisualizer();
+    recordingStartUtteranceIdx = utterances.length; // 시작 시점 기록
     
     recordBtn.classList.add('recording');
     timerEl.classList.add('recording');
@@ -967,13 +1060,122 @@ function stopRecording() {
 
 function addRecording(url, durationMs, blob) {
   const baseName = meetingInfo.name ? meetingInfo.name : '녹음 ' + (recordings.length + 1);
+  // 이 녹음에 속한 발화들 추출
+  const recordingUtterances = utterances.slice(recordingStartUtteranceIdx).map(u => ({...u}));
+  const summary = generateSummary(recordingUtterances, durationMs);
   recordings.unshift({
     id: Date.now(), url, blob,
     duration: durationMs,
     timestamp: new Date(),
-    name: baseName
+    name: baseName,
+    utterances: recordingUtterances,
+    summary: summary,
+    expanded: false
   });
   renderRecordings();
+}
+
+// 규칙 기반 요약 생성
+function generateSummary(utts, durationMs) {
+  if (!utts || utts.length === 0) {
+    return {
+      hasContent: false,
+      text: '이 녹음에는 변환된 텍스트가 없습니다.',
+      stats: [],
+      keywords: []
+    };
+  }
+  
+  // 1. 기본 통계
+  const totalUtterances = utts.length;
+  const totalChars = utts.reduce((sum, u) => sum + u.text.length, 0);
+  const totalWords = utts.reduce((sum, u) => sum + u.text.split(/\s+/).filter(Boolean).length, 0);
+  const durationSec = Math.floor(durationMs / 1000);
+  const durationMin = Math.floor(durationSec / 60);
+  
+  // 2. 화자별 발언 분석
+  const speakerStats = {};
+  utts.forEach(u => {
+    if (!speakerStats[u.speaker]) {
+      speakerStats[u.speaker] = { count: 0, chars: 0, words: 0 };
+    }
+    speakerStats[u.speaker].count++;
+    speakerStats[u.speaker].chars += u.text.length;
+    speakerStats[u.speaker].words += u.text.split(/\s+/).filter(Boolean).length;
+  });
+  const speakers = Object.keys(speakerStats);
+  // 발언량 기준 내림차순 정렬
+  speakers.sort((a, b) => speakerStats[b].chars - speakerStats[a].chars);
+  const dominantSpeaker = speakers[0];
+  
+  // 3. 키워드 추출 (한국어 불용어 제거 + 빈도수)
+  const stopwords = new Set([
+    '그리고', '그런데', '그래서', '그러면', '그러나', '하지만', '그냥', '이제', '저기',
+    '있는', '있어요', '있습니다', '있다', '없는', '없어요', '없습니다', '없다',
+    '하는', '하고', '해서', '한다', '합니다', '했어요', '했습니다', '했다',
+    '이렇게', '저렇게', '그렇게', '어떻게', '왜', '뭐', '무슨', '어떤', '이런', '저런', '그런',
+    '제가', '저는', '우리', '우리는', '저희', '저희는', '거예요', '거에요', '입니다', '이에요', '예요',
+    '아니', '네', '예', '아', '어', '음', '에', '의', '를', '을', '이', '가', '은', '는', '도',
+    '것', '게', '거', '수', '걸', '듯', '점', '때', '곳', '말', '일', '분', '번'
+  ]);
+  const wordFreq = {};
+  utts.forEach(u => {
+    // 한글 단어만 추출 (2글자 이상)
+    const words = u.text.match(/[가-힣]{2,}/g) || [];
+    words.forEach(w => {
+      if (!stopwords.has(w)) {
+        wordFreq[w] = (wordFreq[w] || 0) + 1;
+      }
+    });
+  });
+  // 빈도수 기준 상위 5개
+  const topKeywords = Object.entries(wordFreq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .filter(([w, c]) => c >= 2) // 2번 이상 언급된 것만
+    .map(([w]) => w);
+  
+  // 4. 가장 긴 발화 (핵심 발언으로 추정)
+  const longestUtterances = [...utts]
+    .sort((a, b) => b.text.length - a.text.length)
+    .slice(0, 2);
+  
+  // 5. 요약 문장 자동 생성
+  let summaryText = '';
+  const durationText = durationMin > 0 ? `약 ${durationMin}분` : `${durationSec}초`;
+  
+  if (speakers.length === 1) {
+    summaryText = `이 녹음은 ${durationText} 동안 진행되었으며, ${dominantSpeaker}이(가) 총 ${totalUtterances}회 발언했습니다.`;
+  } else if (speakers.length >= 2) {
+    const speakerSummary = speakers.map(s => `${s}(${speakerStats[s].count}회)`).join(', ');
+    const dominantRatio = Math.round((speakerStats[dominantSpeaker].chars / totalChars) * 100);
+    summaryText = `이 녹음은 ${durationText} 동안 ${speakers.length}명이 참여한 대화입니다. 발언 횟수: ${speakerSummary}. ${dominantSpeaker}의 발언이 전체의 약 ${dominantRatio}%를 차지했습니다.`;
+  }
+  
+  if (topKeywords.length > 0) {
+    summaryText += ` 주요 키워드는 ${topKeywords.slice(0, 3).join(', ')} 등이며, 총 ${totalWords}개의 어절이 발화되었습니다.`;
+  } else {
+    summaryText += ` 총 ${totalWords}개의 어절이 발화되었습니다.`;
+  }
+  
+  // 핵심 발화
+  if (longestUtterances.length > 0 && longestUtterances[0].text.length > 30) {
+    summaryText += `\n\n💬 핵심 발언: "${longestUtterances[0].speaker}: ${longestUtterances[0].text}"`;
+  }
+  
+  return {
+    hasContent: true,
+    text: summaryText,
+    stats: [
+      `⏱ ${durationText}`,
+      `🗣 ${totalUtterances}회 발언`,
+      `👥 ${speakers.length}명 참여`,
+      `📝 ${totalChars}자 / ${totalWords}어절`
+    ],
+    keywords: topKeywords,
+    speakerStats: speakerStats,
+    speakers: speakers
+  };
 }
 
 function renderRecordings() {
@@ -981,23 +1183,151 @@ function renderRecordings() {
     recordingsList.innerHTML = '<div class="empty">아직 녹음된 파일이 없어요</div>';
     return;
   }
-  recordingsList.innerHTML = recordings.map(r => 
-    '<div class="recording-item">' +
-      '<div class="recording-info">' +
-        '<div class="recording-name">' + escapeHtml(r.name) + '</div>' +
-        '<div class="recording-meta">' + formatTime(r.duration) + ' · ' + 
-          r.timestamp.toLocaleString('ko-KR', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'}) + '</div>' +
-      '</div>' +
-      '<div class="recording-controls">' +
-        '<button class="icon-btn" onclick="playRecording(' + r.id + ', this)" title="재생">' +
-          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>' +
-        '<button class="icon-btn" onclick="downloadRecording(' + r.id + ')" title="다운로드">' +
-          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></button>' +
-        '<button class="icon-btn delete" onclick="deleteRecording(' + r.id + ')" title="삭제">' +
-          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>' +
-      '</div>' +
-    '</div>'
-  ).join('');
+  recordingsList.innerHTML = recordings.map(r => {
+    const headerHtml = 
+      '<div class="recording-header" onclick="toggleRecording(' + r.id + ')">' +
+        '<div class="recording-expand-icon">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 17l5-5-5-5v10z"/></svg>' +
+        '</div>' +
+        '<div class="recording-info">' +
+          '<div class="recording-name">' + escapeHtml(r.name) + '</div>' +
+          '<div class="recording-meta">' + formatTime(r.duration) + ' · ' + 
+            r.timestamp.toLocaleString('ko-KR', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'}) + 
+            (r.utterances && r.utterances.length > 0 ? ' · 💬 ' + r.utterances.length : '') + 
+          '</div>' +
+        '</div>' +
+        '<div class="recording-controls" onclick="event.stopPropagation()">' +
+          '<button class="icon-btn" onclick="playRecording(' + r.id + ', this)" title="재생">' +
+            '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>' +
+          '<button class="icon-btn" onclick="downloadRecording(' + r.id + ')" title="다운로드">' +
+            '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></button>' +
+          '<button class="icon-btn delete" onclick="deleteRecording(' + r.id + ')" title="삭제">' +
+            '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>' +
+        '</div>' +
+      '</div>';
+    
+    // 펼쳐지는 상세 영역
+    let detailHtml = '<div class="recording-detail">';
+    
+    // 요약 섹션
+    if (r.summary && r.summary.hasContent) {
+      detailHtml += '<div class="detail-section">' +
+        '<div class="detail-title">' +
+          '<span>📊 회의 요약</span>' +
+          '<button class="detail-copy-btn" onclick="copyRecordingSummary(' + r.id + ', this)">' +
+            '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>' +
+            '복사' +
+          '</button>' +
+        '</div>' +
+        '<div class="summary-box">' + escapeHtml(r.summary.text).replace(/\n/g, '<br>') + '</div>';
+      
+      // 통계 칩
+      if (r.summary.stats && r.summary.stats.length > 0) {
+        detailHtml += '<div style="margin-top:8px;">';
+        r.summary.stats.forEach(s => {
+          detailHtml += '<span class="summary-stat">' + escapeHtml(s) + '</span>';
+        });
+        detailHtml += '</div>';
+      }
+      
+      // 키워드 칩
+      if (r.summary.keywords && r.summary.keywords.length > 0) {
+        detailHtml += '<div style="margin-top:6px;">';
+        detailHtml += '<span style="font-size:0.7rem;color:#888;margin-right:4px;">🏷</span>';
+        r.summary.keywords.forEach(k => {
+          detailHtml += '<span class="summary-keyword">' + escapeHtml(k) + '</span>';
+        });
+        detailHtml += '</div>';
+      }
+      detailHtml += '</div>';
+    } else {
+      detailHtml += '<div class="detail-section">' +
+        '<div class="detail-title">📊 회의 요약</div>' +
+        '<div class="summary-box" style="color:#999;font-style:italic;">변환된 텍스트가 없어 요약을 생성할 수 없습니다.</div>' +
+        '</div>';
+    }
+    
+    // 스크립트 섹션
+    if (r.utterances && r.utterances.length > 0) {
+      detailHtml += '<div class="detail-section">' +
+        '<div class="detail-title">' +
+          '<span>📜 전체 스크립트</span>' +
+          '<button class="detail-copy-btn" onclick="copyRecordingScript(' + r.id + ', this)">' +
+            '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>' +
+            '복사' +
+          '</button>' +
+        '</div>' +
+        '<div class="script-box">';
+      r.utterances.forEach(u => {
+        detailHtml += '<div class="script-utterance">' +
+          '<span class="script-speaker">' + escapeHtml(u.speaker) + ':</span>' +
+          escapeHtml(u.text) +
+          '</div>';
+      });
+      detailHtml += '</div></div>';
+    }
+    
+    detailHtml += '</div>';
+    
+    return '<div class="recording-item' + (r.expanded ? ' expanded' : '') + '" id="rec-' + r.id + '">' + 
+      headerHtml + detailHtml + '</div>';
+  }).join('');
+}
+
+window.toggleRecording = function(id) {
+  const r = recordings.find(x => x.id === id);
+  if (!r) return;
+  r.expanded = !r.expanded;
+  const el = document.getElementById('rec-' + id);
+  if (el) el.classList.toggle('expanded');
+};
+
+window.copyRecordingSummary = async function(id, btn) {
+  const r = recordings.find(x => x.id === id);
+  if (!r || !r.summary) return;
+  let text = '[' + r.name + ' - 회의 요약]\n';
+  text += '일시: ' + r.timestamp.toLocaleString('ko-KR') + '\n';
+  text += '녹음 시간: ' + formatTime(r.duration) + '\n\n';
+  text += r.summary.text;
+  if (r.summary.keywords && r.summary.keywords.length > 0) {
+    text += '\n\n주요 키워드: ' + r.summary.keywords.join(', ');
+  }
+  await copyToClipboard(text);
+  showCopiedFeedback(btn);
+};
+
+window.copyRecordingScript = async function(id, btn) {
+  const r = recordings.find(x => x.id === id);
+  if (!r || !r.utterances) return;
+  let text = '[' + r.name + ' - 전체 스크립트]\n';
+  text += '일시: ' + r.timestamp.toLocaleString('ko-KR') + '\n';
+  text += '녹음 시간: ' + formatTime(r.duration) + '\n\n';
+  text += r.utterances.map(u => u.speaker + ': ' + u.text).join('\n');
+  await copyToClipboard(text);
+  showCopiedFeedback(btn);
+};
+
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+}
+
+function showCopiedFeedback(btn) {
+  const orig = btn.innerHTML;
+  btn.classList.add('copied');
+  btn.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>복사됨';
+  setTimeout(() => {
+    btn.classList.remove('copied');
+    btn.innerHTML = orig;
+  }, 1500);
 }
 
 let currentAudio = null;
